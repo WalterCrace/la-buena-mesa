@@ -3,47 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\MenuItem;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreMenuItemRequest;
+use App\Http\Requests\UpdateMenuItemRequest;
+use Illuminate\Http\JsonResponse;
 
 class MenuItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $items = MenuItem::all();
+        return response()->json($items);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreMenuItemRequest $request): JsonResponse
     {
-        //
+        $item = MenuItem::create($request->validated());
+        return response()->json($item, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(MenuItem $menuItem)
+    public function show(MenuItem $menuItem): JsonResponse
     {
-        //
+        return response()->json($menuItem);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, MenuItem $menuItem)
+    public function update(UpdateMenuItemRequest $request, MenuItem $menuItem): JsonResponse
     {
-        //
+        $menuItem->update($request->validated());
+        return response()->json($menuItem);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(MenuItem $menuItem)
+    public function destroy(MenuItem $menuItem): JsonResponse
     {
-        //
+        $menuItem->delete();
+        return response()->json(null, 204);
+    }
+
+    public function getByCategory($category): JsonResponse
+    {
+        $items = MenuItem::where('category', $category)->get();
+        return response()->json($items);
     }
 }
