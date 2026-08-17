@@ -51,3 +51,7 @@ API desarrollada en Laravel para la gestión centralizada del menú del restaura
 6. Filtrar por categoría
     - Método: GET
     - Ruta: /api/menu-items/category/{category}
+
+## 📸 Capturas de Pantalla del Sistema
+
+![Ejecucion del Proyecto](capture/capture-result.png)
